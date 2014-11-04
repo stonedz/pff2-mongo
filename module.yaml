@@ -1,0 +1,6 @@
+name: pff2-mongo
+version: "0.1"
+desc: MongoDb Wrapper
+class: Pff2Mongo
+requires_php_extension:
+  - mongo

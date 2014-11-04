@@ -1,0 +1,31 @@
+{
+	"name": "stonedz/pff2-mongo",
+	"type": "pff2-module",
+	"description": "MongoDb module for pff2",
+	"license": "MIT",
+    "minimum-stability": "stable",
+	"keywords": [
+		"pff2", "module", "db", "mongodb"
+	],
+	"authors": [
+		{
+			"name": "Paolo Fagni",
+			"email": "paolo.fagni@gmail.com",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://github.com/stonedz/pff2-permissions",
+	"require": {
+		"stonedz/pff2-installers": "*",
+        "doctrine/mongodb-odm": "1.0.*@dev"
+	},
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*",
+        "stonedz/pff2": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "pff\\modules\\": "src/"
+        }
+    }
+}
