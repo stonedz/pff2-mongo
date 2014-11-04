@@ -8,13 +8,14 @@
 namespace pff\modules;
 
 use pff\Abs\AModule;
+use pff\Iface\IBeforeSystemHook;
 use pff\Iface\IConfigurableModule;
 use Doctrine\MongoDB\Connection;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 
-class Pff2Mongo extends AModule implements IConfigurableModule {
+class Pff2Mongo extends AModule implements IConfigurableModule, IBeforeSystemHook {
 
     private $_server, $_dbName;
 
@@ -31,7 +32,16 @@ class Pff2Mongo extends AModule implements IConfigurableModule {
         $this->_server = $conf['moduleConf']['server'];
         $this->_dbName = $conf['moduleConf']['dbName'];
 
+    }
+
+    /**
+     * Executed before the system startup
+     *
+     * @return mixed
+     */
+    public function doBeforeSystem() {
         $this->_app->getConfig()->setConfig('mongo_server', $this->_server);
         $this->_app->getConfig()->setConfig('mongo_dbName', $this->_dbName);
+        // TODO: Implement doBeforeSystem() method.
     }
 }
