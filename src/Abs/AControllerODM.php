@@ -7,12 +7,15 @@
 
 namespace pff\modules\Abs;
 
+use Doctrine\Common\Cache\ApcCache;
+use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\MongoDB\Connection;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use pff\Abs\AController;
 use pff\App;
+use pff\Core\ServiceContainer;
 use pff\Traits\ControllerTrait;
 
 abstract class AControllerODM extends AController {
@@ -39,7 +42,16 @@ abstract class AControllerODM extends AController {
 
         $config = new Configuration();
         $conn   = new Connection($this->_config->getConfigData('mongo_server'));
-
+        if (true === $this->_config->getConfigData('development_environment')) {
+            $cache = new ArrayCache();
+            $config->setAutoGenerateHydratorClasses(true);
+            $config->setAutoGenerateProxyClasses(true);
+        } else {
+            $cache = new ApcCache(array('prefix'=>$this->_app->getConfig()->getConfigData('app_name')));
+            $config->setAutoGenerateHydratorClasses(false);
+            $config->setAutoGenerateProxyClasses(false);
+        }
+        $config->setMetadataCacheImpl($cache);
         $config->setProxyDir(ROOT . DS . 'app' . DS.  'proxies');
         $config->setProxyNamespace('Proxies');
         $config->setHydratorDir(ROOT . DS . 'app' . DS .  'hydrators');
@@ -50,7 +62,7 @@ abstract class AControllerODM extends AController {
         AnnotationDriver::registerAnnotationClasses();
 
         $this->_dm = DocumentManager::create($conn, $config);
-
+        ServiceContainer::set()['dm'] = $this->_dm;
     }
 
     /**
