@@ -14,7 +14,7 @@
 			"role": "Developer"
 		}
 	],
-	"homepage": "https://github.com/stonedz/pff2-permissions",
+	"homepage": "https://github.com/stonedz/pff2-mongo",
 	"require": {
 		"stonedz/pff2-installers": "*",
         "doctrine/mongodb-odm": "1.0.*@dev"
