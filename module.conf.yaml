@@ -1,5 +1,5 @@
 moduleConf:
-  # USer class name
+  # default db name
   dbName: test_db
 
   server: mongodb://127.0.0.1
