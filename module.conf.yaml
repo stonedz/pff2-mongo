@@ -2,4 +2,5 @@ moduleConf:
   # default db name
   dbName: test_db
 
+  # mongodb server
   server: mongodb://127.0.0.1
